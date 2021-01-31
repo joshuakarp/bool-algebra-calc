@@ -1,0 +1,258 @@
+============================================================
+|                            1                             |
+============================================================
+
+b-check
+=====================================
+PASS ✓ -  valid  : ((X))
+PASS ✓ - invalid : (NIL)
+PASS ✓ - invalid : NIL
+PASS ✓ - invalid : (1 0 1)
+PASS ✓ -  valid  : ((1 0 1))
+PASS ✓ -  valid  : ((0 1 X) ((B-AND A B) (B-OR (B-AND 1 1) (B-NOT SYMBOL)) 0))
+=====================================
+
+b-check-shape
+=====================================
+PASS ✓ -  valid  : ((X))
+PASS ✓ -  valid  : ((1 2 3) (X Y Z) (A B C))
+PASS ✓ -  valid  : ((1 2 3 4 5))
+PASS ✓ -  valid  : ((1) (1) (1) (1))
+PASS ✓ - invalid : ((1 2 3) (X Y Z) (A B C D))
+PASS ✓ - invalid : ((1 2) (X Y Z) (A B C))
+=====================================
+
+b-check-expressions
+=====================================
+PASS ✓ -  valid  : ((X))
+PASS ✓ - invalid : ((100))
+PASS ✓ -  valid  : ((0 1 0) ((B-AND 0 0) X Y) (X Y (B-OR SYM1 SYM2)))
+PASS ✓ -  valid  : ((1 0) (A B) ((B-AND 0 1) (B-NOT WORD)))
+PASS ✓ - invalid : ((1 0) ((B-AND 1 1) 5))
+PASS ✓ - invalid : ((1 0) (NIL 1))
+PASS ✓ - invalid : ((1 0) ((B-AND 5 1) 1))
+PASS ✓ - invalid : ((1 0) (1 (B-AND 0 1 0)))
+=====================================
+
+b-check-expressions-row
+=====================================
+PASS ✓ -  valid  : (1 1 0 0)
+PASS ✓ -  valid  : (A B C)
+PASS ✓ -  valid  : (1 (B-AND X Y) 1)
+PASS ✓ - invalid : (1 (B-AND X Y) 5)
+PASS ✓ - invalid : (1 NIL 2)
+PASS ✓ -  valid  : ((B-AND 0 1) (B-OR Y 0) (B-NOT (B-OR 1 1)) 1 X)
+=====================================
+
+b-check-expressions-row-function
+=====================================
+PASS ✓ - invalid : NIL
+PASS ✓ -  valid  : (B-AND 0 1)
+PASS ✓ -  valid  : (B-OR X Y)
+PASS ✓ -  valid  : (B-NOT 0)
+PASS ✓ - invalid : (B-XOR Y 0)
+PASS ✓ - invalid : (B-AND 1 1 1)
+PASS ✓ -  valid  : (B-AND (B-OR 1 0) (B-NOT A))
+PASS ✓ -  valid  : (B-NOT (B-NOT (B-AND 0 (B-NOT 1))))
+=====================================
+
+============================================================
+|                            2                             |
+============================================================
+
+b-shape
+=====================================
+PASS ✓ -  valid  : ((1))
+PASS ✓ -  valid  : ((1 X Y) (1 X Y))
+PASS ✓ -  valid  : ((1 1 1 1 1))
+PASS ✓ -  valid  : ((1) (1) (1) (1) (1))
+PASS ✓ - invalid : ((1 Y) (1 X Y))
+PASS ✓ -  valid  : (((B-AND 1 0) (B-OR 1 1)) ((B-NOT A) X))
+PASS ✓ -  valid  : ((1 (B-AND 0 1)) ((B-NOT (B-OR 1 0)) A))
+=====================================
+
+============================================================
+|                            3                             |
+============================================================
+
+b-elem
+=====================================
+PASS ✓ -  valid  : ((1))
+PASS ✓ -  valid  : ((A B C) (D E F) (G H I))
+PASS ✓ -  valid  : ((A B C) (D E F) (G H I))
+PASS ✓ -  valid  : ((A B C D) (E F G H))
+PASS ✓ -  valid  : ((0 1) ((B-AND 0 1) 0))
+PASS ✓ -  valid  : ((0 1) ((B-AND (B-NOT 0) 1) 0))
+PASS ✓ - invalid : ((A B C) (D E) (G H I))
+PASS ✓ - invalid : ((A B) (C D))
+PASS ✓ - invalid : ((A B) (C D))
+=====================================
+
+============================================================
+|                            4                             |
+============================================================
+
+b-and
+=====================================
+PASS ✓ - Expected: (((B-AND 1 X)))
+PASS ✓ - Expected: (((B-AND A G) (B-AND B H) (B-AND C I)) ((B-AND D J) (B-AND E K) (B-AND F L)))
+PASS ✓ - Expected: NIL
+PASS ✓ - Expected: NIL
+PASS ✓ - Expected: NIL
+PASS ✓ - Expected: NIL
+PASS ✓ - Expected: (((B-AND A 0) (B-AND (B-NOT 0) 0)) ((B-AND 1 (B-OR 0 1)) (B-AND 1 Z)))
+=====================================
+
+b-or
+=====================================
+PASS ✓ - Expected: (((B-OR 1 X)))
+PASS ✓ - Expected: (((B-OR A G) (B-OR B H) (B-OR C I)) ((B-OR D J) (B-OR E K) (B-OR F L)))
+PASS ✓ - Expected: NIL
+PASS ✓ - Expected: NIL
+PASS ✓ - Expected: NIL
+PASS ✓ - Expected: NIL
+PASS ✓ - Expected: (((B-OR A 0) (B-OR (B-NOT 0) 0)) ((B-OR 1 (B-AND 0 1)) (B-OR 1 Z)))
+=====================================
+
+b-not
+=====================================
+PASS ✓ - Expected: (((B-NOT 1)))
+PASS ✓ - Expected: (((B-NOT A) (B-NOT B) (B-NOT C)) ((B-NOT D) (B-NOT E) (B-NOT F)))
+PASS ✓ - Expected: NIL
+PASS ✓ - Expected: NIL
+PASS ✓ - Expected: NIL
+PASS ✓ - Expected: (((B-NOT A) (B-NOT (B-AND 0 1))) ((B-NOT 1) (B-NOT 1)))
+=====================================
+
+b-build-fn-matrix
+=====================================
+PASS ✓ - Expected: (((B-OR 1 X)))
+PASS ✓ - Expected: (((B-NOT EXPR)))
+PASS ✓ - Expected: (((B-XOR A G) (B-XOR B H) (B-XOR C I)) ((B-XOR D J) (B-XOR E K) (B-XOR F L)))
+PASS ✓ - Expected: (((B-NOT A) (B-NOT B) (B-NOT C)) ((B-NOT D) (B-NOT E) (B-NOT F)))
+PASS ✓ - Expected: (((B-AND A 0) (B-AND (B-NOT 0) 0)) ((B-AND 1 (B-OR 0 1)) (B-AND 1 Z)))
+================================
+
+b-build-fn-matrix-row
+=====================================
+PASS ✓ - Expected: ((B-OR 1 X))
+PASS ✓ - Expected: ((B-NOT EXPR))
+PASS ✓ - Expected: ((B-XOR A F) (B-XOR B G) (B-XOR C H) (B-XOR D I) (B-XOR E J))
+PASS ✓ - Expected: ((B-NOT A) (B-NOT B) (B-NOT C) (B-NOT D) (B-NOT E))
+PASS ✓ - Expected: ((B-AND A (B-OR 0 1)) (B-AND (B-NOT 0) Z))
+=====================================
+
+============================================================
+|                            5                             |
+============================================================
+
+b-simplify
+=====================================
+PASS ✓ : ((1)) -> ((1)) : Expected: ((1))
+PASS ✓ : ((A B C) (D E F)) -> ((A B C) (D E F)) : Expected: ((A B C) (D E F))
+PASS ✓ : ((2)) -> NIL : Expected: NIL
+PASS ✓ : 
+(((B-AND X X) (B-OR Y Y)) ((B-NOT (B-NOT Z)) (B-NOT 0))
+ ((B-AND A 0) (B-OR B 0))) -> ((X Y) (Z 1) (0 B)) : Expected: ((X Y) (Z 1) (0 B))
+PASS ✓ : 
+(((B-OR (B-AND X Y) (B-AND X (B-NOT Y)))
+  (B-AND D (B-OR (B-AND B C) (B-AND B 1))))
+ ((B-OR A (B-AND A B)) (B-OR (B-NOT A) (B-NOT (B-AND A B))))) -> ((X (B-AND D B)) (A (B-OR (B-NOT A) (B-NOT B)))) : Expected: ((X (B-AND D B)) (A (B-OR (B-NOT A) (B-NOT B))))
+=====================================
+
+b-simplify-row
+=====================================
+PASS ✓ : (1) -> (1) : Expected: (1)
+PASS ✓ : (1 1 1 1 1) -> (1 1 1 1 1) : Expected: (1 1 1 1 1)
+PASS ✓ : ((B-AND A 0) A B) -> (0 A B) : Expected: (0 A B)
+PASS ✓ : (A B (B-AND A 0)) -> (A B 0) : Expected: (A B 0)
+PASS ✓ : ((B-AND X X) (B-OR Y Y) (B-NOT (B-NOT Z))) -> (X Y Z) : Expected: (X Y Z)
+PASS ✓ : 
+((B-OR (B-AND X Y) (B-AND X (B-NOT Y))) 1
+ (B-OR (B-AND X Y) (B-AND X (B-NOT Y)))) -> (X 1 X) : Expected: (X 1 X)
+=====================================
+
+b-simplify-element
+=====================================
+PASS ✓ : (B-OR (B-AND X Y) (B-AND X (B-NOT Y))) -> X : Expected: X
+PASS ✓ : (B-AND D (B-OR (B-AND B C) (B-AND B 1))) -> (B-AND D B) : Expected: (B-AND D B)
+PASS ✓ : (B-OR (B-NOT (B-AND C A)) (B-AND (B-OR (B-AND C 1) (B-AND D D)) 0)) -> (B-OR (B-NOT C) (B-NOT A)) : Expected: (B-OR (B-NOT C) (B-NOT A))
+PASS ✓ : 
+(B-OR (B-NOT (B-AND A (B-OR (B-AND (B-NOT B) B) (B-NOT (B-AND C D)))))
+ (B-AND 0 B)) -> (B-OR (B-NOT A) (B-AND C D)) : Expected: (B-OR (B-NOT A) (B-AND C D))
+PASS ✓ : (B-OR (B-NOT (B-AND C (B-OR (B-AND 1 0) (B-AND B B)))) (B-AND (B-NOT B) B)) -> (B-OR (B-NOT C) (B-NOT B)) : Expected: (B-OR (B-NOT C) (B-NOT B))
+FAIL ✗ : (B-OR (B-NOT (B-AND (B-OR (B-NOT (B-AND C B)) (B-NOT D D)) B)) (B-AND 1 C)) -> (B-OR (B-AND C (B-AND B D)) (B-OR (B-NOT B) C)) : Expected: (B-OR (B-NOT B) C)
+=====================================
+
+b-simplify-element-solve
+=====================================
+PASS ✓ : (B-AND 0 X) -> 0 : Expected: 0
+PASS ✓ : (B-OR X 1) -> 1 : Expected: 1
+PASS ✓ : (B-AND (B-NOT X) X) -> 0 : Expected: 0
+PASS ✓ : (B-OR (B-AND X Y) (B-AND X Z)) -> (B-AND X (B-OR Y Z)) : Expected: (B-AND X (B-OR Y Z))
+PASS ✓ : (B-NOT (B-AND A B)) -> (B-OR (B-NOT A) (B-NOT B)) : Expected: (B-OR (B-NOT A) (B-NOT B))
+=====================================
+
+b-simplify-element-solve-constant
+=====================================
+PASS ✓ - Expected: 0
+PASS ✓ - Expected: 0
+PASS ✓ - Expected: 0
+PASS ✓ - Expected: 0
+PASS ✓ - Expected: X
+PASS ✓ - Expected: 0
+PASS ✓ - Expected: 1
+PASS ✓ - Expected: 1
+PASS ✓ - Expected: X
+PASS ✓ - Expected: 1
+PASS ✓ - Expected: 1
+PASS ✓ - Expected: 0
+=====================================
+
+b-simplify-element-solve-and
+=====================================
+PASS ✓ - Expected: 0
+PASS ✓ - Expected: 0
+PASS ✓ - Expected: 0
+PASS ✓ - Expected: E
+PASS ✓ - Expected: (B-AND 0 1)
+PASS ✓ - Expected: A
+PASS ✓ - Expected: A
+PASS ✓ - Expected: A
+PASS ✓ - Expected: A
+PASS ✓ - Expected: (B-NOT (B-AND 1 0))
+PASS ✓ - Expected: (B-AND A (B-AND B C))
+PASS ✓ - Expected: (B-AND (B-AND A B) C)
+=====================================
+
+b-simplify-element-solve-or
+=====================================
+PASS ✓ - Expected: (B-AND E1 (B-OR A B))
+PASS ✓ - Expected: (B-AND E1 (B-OR A B))
+PASS ✓ - Expected: (B-AND E1 (B-OR A B))
+PASS ✓ - Expected: (B-AND E1 (B-OR A B))
+PASS ✓ - Expected: (B-AND (B-NOT X) (B-OR A B))
+PASS ✓ - Expected: 1
+PASS ✓ - Expected: 1
+PASS ✓ - Expected: 1
+PASS ✓ - Expected: E
+PASS ✓ - Expected: (B-AND 0 1)
+PASS ✓ - Expected: A
+PASS ✓ - Expected: A
+PASS ✓ - Expected: A
+PASS ✓ - Expected: A
+PASS ✓ - Expected: (B-NOT (B-AND 1 0))
+PASS ✓ - Expected: (B-OR A (B-OR B C))
+PASS ✓ - Expected: (B-OR (B-OR A B) C)
+=====================================
+
+b-simplify-element-solve-not
+=====================================
+PASS ✓ - Expected: X
+PASS ✓ - Expected: (B-AND (B-OR X Y) 1)
+PASS ✓ - Expected: (B-OR (B-NOT A) (B-NOT B))
+PASS ✓ - Expected: (B-OR (B-NOT (B-NOT A)) (B-NOT (B-AND 1 1)))
+PASS ✓ - Expected: (B-AND (B-NOT A) (B-NOT B))
+PASS ✓ - Expected: (B-AND (B-NOT (B-NOT A)) (B-NOT (B-AND 1 1)))
+=====================================
+
