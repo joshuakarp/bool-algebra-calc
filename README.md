@@ -40,7 +40,7 @@ For example, given the element `(b-or (b-and x y) (b-and x (b-not y)))` in some 
 	(b-or (b-and x y) (b-and x (b-not y)))
 	= (b-and x (b-or y (b-not y)))          (distributive)
 	= (b-and x 1)                           (complement)
-	= x
+	= x                                     (identity)
 	
 Consequently, a call to `b-simplify` with some n x m matrix with every matrix element containing this boolean expression will result in an n x m matrix with every element containing `x`.
 
