@@ -47,7 +47,7 @@ Consequently, a call to `b-simplify` with some n x m matrix with every matrix el
 Testing suite
 =============
 
-The testing suite provides valid and invalid inputs for each function, ensuring that expected and unexpected results are covered. Tests can be run by executing the `tests.clisp` file, which will provide a printout of test results in stdout.
+The testing suite provides valid and invalid inputs for each function, ensuring that expected and unexpected results are covered. Tests can be run by executing the `tests.lisp` file, which will provide a printout of test results in stdout.
 
 Example of test output for `b-check-shape`:
 
